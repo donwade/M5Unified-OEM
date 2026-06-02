@@ -542,11 +542,11 @@ namespace m5
 
       int32_t av = avg_value[i];
       diff = d - av;
-      maxdiff = std::max(maxdiff, abs(diff));
+      maxdiff = std::max<int32_t>(maxdiff, abs(diff));
 
       diff = (diff + (1 << (average_shifter - 1))) >> average_shifter;
       avg_value[i] = av + diff;
-      // maxdiff = std::max(maxdiff, abs(diff) << (average_shifter));
+      // maxdiff = std::max<int32_t>(maxdiff, abs(diff) << (average_shifter));
     }
 
     int32_t rt = noise_level << 8;
