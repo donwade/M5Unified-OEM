@@ -146,6 +146,7 @@ namespace m5
   	uint16_t read16 (uint8_t regnum, uint16_t &value);
   	uint8_t  write8 (uint8_t regnum, uint8_t   value);
   	uint16_t write16(uint8_t regnum, uint16_t  value);
+  	bool	 readN  (uint8_t regnum, uint8_t *array, uint16_t arrayLen);
 
   private:
 

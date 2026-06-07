@@ -23,21 +23,40 @@ namespace m5
 
   uint8_t BMI270_Class::read8(uint8_t regnum, uint8_t &value)
   {
-	log_i("%s:%d [%02d] read %d 0x%02X <<<<", __FUNCTION__, __LINE__, regnum, value, value);  //dwade
-  	return 0;
+	value = readRegister8(regnum);
+	log_i(" [%02d] read %d 0x%02X <<<<", regnum, value, value);  //dwade
+  	return value;
   }
+
+  bool BMI270_Class::readN(uint8_t regnum, uint8_t *array, uint16_t arrayLen)
+  {
+      uint8_t buf[arrayLen];
+      memset(buf, 0x55, arrayLen);
+      
+      readRegister(regnum, buf, arrayLen);
+      memcpy(array, buf, arrayLen);
+
+      log_i(" [%02d] len=%d readN 0x%02X 0x%02X ... <<<<", regnum, arrayLen, array[0], array[1]); //dwade
+  	return true;
+  }
+
+
 
   uint16_t BMI270_Class::read16(uint8_t regnum, uint16_t &value)
   {
-    log_i("%s:%d [%02d] read %d 0x%04X <<<<", __FUNCTION__, __LINE__, regnum, value, value);	//dwade
-  	return 0;
+  	  uint16_t temp;
+  	  readN(regnum, (uint8_t *) temp , sizeof(temp));
+
+      value = temp;
+      log_i("%s:%d [%02d] read %d 0x%04X <<<<", __FUNCTION__, __LINE__, regnum, value, value);	//dwade
+  	return value;
   }
 
   uint8_t BMI270_Class::write8(uint8_t regnum, uint8_t value)
   {
-    //log_i("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
 	log_i("%s:%d [%02d] wrote %d 0x%02X <<<<", __FUNCTION__, __LINE__, regnum, value, value);	//dwade
-  	return 0;
+    auxWriteRegister8(regnum, value);
+  	return value;
   }
 
   uint16_t BMI270_Class::write16(uint8_t regnum, uint16_t value)
@@ -145,7 +164,9 @@ namespace m5
 
   std::uint8_t BMI270_Class::WhoAmI(void)
   {
-    return readRegister8(CHIP_ID_ADDR);
+    uint8_t foo = readRegister8(CHIP_ID_ADDR);
+  	log_i("HELLO I AM %d ssssssssssssssssss", foo);
+    return foo;
   }
 
   IMU_Base::imu_spec_t BMI270_Class::getImuRawData(imu_raw_data_t* data) const
