@@ -91,6 +91,7 @@ namespace m5
 
     const imu_data_t& getImuData(void) { getImuData(&_last_data); return _last_data; }
 
+
     // 軸の順序を指定する。デフォルトはX+,Y+,Z+
     bool setAxisOrder(axis_t axis0, axis_t axis1, axis_t axis2);
 
@@ -140,6 +141,11 @@ namespace m5
     int16_t getRawData(size_t index);
 
     IMU_Base* getImuInstancePtr(int idx) const { return _imu_instance[idx].get(); }
+
+    uint8_t  read8  (uint8_t regnum, uint8_t  &value);
+  	uint16_t read16 (uint8_t regnum, uint16_t &value);
+  	uint8_t  write8 (uint8_t regnum, uint8_t   value);
+  	uint16_t write16(uint8_t regnum, uint16_t  value);
 
   private:
 

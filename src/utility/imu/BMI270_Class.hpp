@@ -88,6 +88,12 @@ namespace m5
     bool getTempAdc(int16_t* adc) const override;
 
     std::uint8_t WhoAmI(void);
+
+    uint8_t  read8  (uint8_t regnum, uint8_t  &value);
+    uint16_t read16 (uint8_t regnum, uint16_t &value);
+    uint8_t  write8 (uint8_t regnum, uint8_t   value);
+    uint16_t write16(uint8_t regnum, uint16_t  value);
+
 /*
     bool getAccelAdc(std::int16_t* ax, std::int16_t* ay, std::int16_t* az) const override;
     bool getGyroAdc(std::int16_t* gx, std::int16_t* gy, std::int16_t* gz) const override;

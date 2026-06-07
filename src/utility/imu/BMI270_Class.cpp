@@ -6,6 +6,8 @@
 #include "BMI270_Class.hpp"
 #include <freertos/FreeRTOS.h>
 #include <freertos/task.h>
+#include "../Log_Class.hpp"
+#define TAG "BMI270"
 
 namespace m5
 {
@@ -14,7 +16,35 @@ namespace m5
   BMI270_Class::~BMI270_Class() {}
   BMI270_Class::BMI270_Class(std::uint8_t i2c_addr, std::uint32_t freq, I2C_Class* i2c)
   : IMU_Base ( i2c_addr, freq, i2c )
-  {}
+  {
+    log_w("i2c_addr = 0x%X  freq=%d ", i2c_addr, freq);
+  }
+
+
+  uint8_t BMI270_Class::read8(uint8_t regnum, uint8_t &value)
+  {
+	log_i("%s:%d [%02d] read %d 0x%02X <<<<", __FUNCTION__, __LINE__, regnum, value, value);  //dwade
+  	return 0;
+  }
+
+  uint16_t BMI270_Class::read16(uint8_t regnum, uint16_t &value)
+  {
+    log_i("%s:%d [%02d] read %d 0x%04X <<<<", __FUNCTION__, __LINE__, regnum, value, value);	//dwade
+  	return 0;
+  }
+
+  uint8_t BMI270_Class::write8(uint8_t regnum, uint8_t value)
+  {
+    //log_i("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
+	log_i("%s:%d [%02d] wrote %d 0x%02X <<<<", __FUNCTION__, __LINE__, regnum, value, value);	//dwade
+  	return 0;
+  }
+
+  uint16_t BMI270_Class::write16(uint8_t regnum, uint16_t value)
+  {
+	log_i("%s:%d [%02d] wrote %d 0x%04X <<<<", __FUNCTION__, __LINE__, regnum, value, value);	//dwade
+  	return 0;
+  }
 
   bool BMI270_Class::_upload_file(const uint8_t *config_data, size_t index, size_t write_len)
   {

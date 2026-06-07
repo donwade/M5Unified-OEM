@@ -72,6 +72,15 @@ namespace m5
     virtual void getConvertParam(imu_convert_param_t* param) const = 0;//{}
     virtual bool getTempAdc(int16_t* adc) const { (void)adc; return false; };
     virtual bool sleep(void) { return false; };
+
+	virtual uint8_t  read8  (uint8_t regnum, uint8_t  &value) { return 0;};
+	virtual uint16_t read16 (uint8_t regnum, uint16_t &value) { return 0;};
+	virtual uint8_t  write8 (uint8_t regnum, uint8_t  value)  { return 0;};
+	virtual uint16_t write16(uint8_t regnum, uint16_t value)  { return 0;};
+
+
+
+    
 /*
     virtual bool getAccelAdc(std::int16_t* ax, std::int16_t* ay, std::int16_t* az) const { return false; }
     virtual bool getGyroAdc(std::int16_t* gx, std::int16_t* gy, std::int16_t* gz) const { return false; }
