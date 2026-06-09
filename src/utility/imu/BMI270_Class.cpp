@@ -24,7 +24,7 @@ namespace m5
   uint8_t BMI270_Class::read8(uint8_t regnum, uint8_t &value)
   {
 	value = readRegister8(regnum);
-	log_i("[%02d].8 >> %d (0x%02X)", regnum, value, value);  //dwade
+	log_i("[x%02X].8 >> %d (0x%02X)", regnum, value, value);  //dwade
   	return value;
   }
 
@@ -34,9 +34,9 @@ namespace m5
       memset(buf, 0x55, arrayLen);
       
       readRegister(regnum, buf, arrayLen);
-      memcpy(array, buf, arrayLen);
+      memcpy(array, &buf[0], arrayLen);
 
-      log_i("[%02d].8 len=%d readN >>  (0x%02X 0x%02X ...)", regnum, arrayLen, array[0], array[1]); //dwade
+      log_i("[x%02X].8 len=%d readN >>  (0x%02X 0x%02X ...)", regnum, arrayLen, array[0], array[1]); //dwade
   	return true;
   }
 
@@ -44,19 +44,19 @@ namespace m5
 
   uint16_t BMI270_Class::read16(uint8_t regnum, uint16_t &value)
   {
-  	  uint16_t temp;
-  	  readN(regnum, (uint8_t *) temp , sizeof(temp));
+  	  uint8_t temp[2];
+  	  readN(regnum, temp , sizeof(temp));
 
-      value = temp;
-      log_i("[%02d].16 >> %d (0x%04X)", regnum, value, value);	//dwade
+      value = temp[1] << 8 | temp[0];  
+      log_i("[x%02X].16 >> %d (0x%04X)", regnum, value, value);	//dwade
   	return value;
   }
 
   uint8_t BMI270_Class::write8(uint8_t regnum, uint8_t value)
   {
-	log_i("[%02d].8 << %d 0x%02X", regnum, value, value);	//dwade
+	log_i("[x%02X].8 << %d 0x%02X", regnum, value, value);	//dwade
     writeRegister8(regnum, value);
-	log_i("[%02d].8 << %d 0x%02X", regnum, value, value);	//dwade
+	log_i("[x%02X].8 << %d 0x%02X", regnum, value, value);	//dwade
   	return value;
   }
 
@@ -64,7 +64,7 @@ namespace m5
   {
     // I2C_Class.hpp for inline defintion of writeRegister. (the header FILE).
     writeRegister(regnum, (uint8_t *) &value, 2);
-	log_i("[%02d].16 << %d (0x%04X)", regnum, value, value);	//dwade
+	log_i("[x%02X].16 << %d (0x%04X)", regnum, value, value);	//dwade
   	return value;
   }
 
