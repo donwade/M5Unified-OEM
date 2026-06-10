@@ -36,7 +36,7 @@ namespace m5
       readRegister(regnum, buf, arrayLen);
       memcpy(array, &buf[0], arrayLen);
 
-      log_i("[x%02X].8 len=%d readN >>  (0x%02X 0x%02X ...)", regnum, arrayLen, array[0], array[1]); //dwade
+      log_d("[x%02X].8 len=%d readN >>  (0x%02X 0x%02X ...)", regnum, arrayLen, array[0], array[1]); //dwade
   	return true;
   }
 
@@ -54,9 +54,8 @@ namespace m5
 
   uint8_t BMI270_Class::write8(uint8_t regnum, uint8_t value)
   {
-	log_i("[x%02X].8 << %d 0x%02X", regnum, value, value);	//dwade
     writeRegister8(regnum, value);
-	log_i("[x%02X].8 << %d 0x%02X", regnum, value, value);	//dwade
+	log_d("[x%02X].8 << %d 0x%02X", regnum, value, value);	//dwade
   	return value;
   }
 
