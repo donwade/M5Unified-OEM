@@ -184,11 +184,11 @@ namespace m5
     return true;
   }
 
-  uint8_t  IMU_Class::read8  (uint8_t regnum, uint8_t  &value) { return _imu_instance[0]->read8 (regnum, value);};
-  uint16_t IMU_Class::read16 (uint8_t regnum, uint16_t &value) { return _imu_instance[0]->read16(regnum, value);};
-  uint8_t  IMU_Class::write8 (uint8_t regnum, uint8_t	value) { return _imu_instance[0]->write8(regnum, value);};
-  uint16_t IMU_Class::write16(uint8_t regnum, uint16_t  value) { return _imu_instance[0]->write16(regnum, value);};
-  bool	   IMU_Class::readN  (uint8_t regnum, uint8_t *array, uint16_t arrayLen) { return _imu_instance[0]->readN(regnum, array, arrayLen);}
+  uint8_t  IMU_Class::read8  (uint8_t regnum, uint8_t  &value, bool bQuiet) { return _imu_instance[0]->read8 (regnum, value, bQuiet);};
+  uint16_t IMU_Class::read16 (uint8_t regnum, uint16_t &value, bool bQuiet) { return _imu_instance[0]->read16(regnum, value, bQuiet);};
+  uint8_t  IMU_Class::write8 (uint8_t regnum, uint8_t	value, bool bQuiet) { return _imu_instance[0]->write8(regnum, value, bQuiet);};
+  uint16_t IMU_Class::write16(uint8_t regnum, uint16_t  value, bool bQuiet) { return _imu_instance[0]->write16(regnum, value,bQuiet);};
+  bool	   IMU_Class::readN  (uint8_t regnum, uint8_t *array, uint16_t arrayLen, bool bQuiet) { return _imu_instance[0]->readN(regnum, array, arrayLen, bQuiet);}
 
   bool IMU_Class::sleep(void)
   {

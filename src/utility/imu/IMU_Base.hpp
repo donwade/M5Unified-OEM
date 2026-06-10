@@ -73,11 +73,11 @@ namespace m5
     virtual bool getTempAdc(int16_t* adc) const { (void)adc; return false; };
     virtual bool sleep(void) { return false; };
 
-	virtual uint8_t  read8  (uint8_t regnum, uint8_t  &value) { return 0;};
-	virtual uint16_t read16 (uint8_t regnum, uint16_t &value) { return 0;};
-	virtual uint8_t  write8 (uint8_t regnum, uint8_t  value)  { return 0;};
-	virtual uint16_t write16(uint8_t regnum, uint16_t value)  { return 0;};
-    virtual bool 	 readN  (uint8_t regnum, uint8_t *array, uint16_t arrayLen) { return true; };
+	virtual uint8_t  read8  (uint8_t regnum, uint8_t  &value, bool bQuiet) { return 0;};
+	virtual uint16_t read16 (uint8_t regnum, uint16_t &value, bool bQuiet) { return 0;};
+	virtual uint8_t  write8 (uint8_t regnum, uint8_t  value, bool bQuiet)  { return 0;};
+	virtual uint16_t write16(uint8_t regnum, uint16_t value, bool bQuiet)  { return 0;};
+    virtual bool 	 readN  (uint8_t regnum, uint8_t *array, uint16_t arrayLen, bool bQuiet) { return true; };
 
 
 

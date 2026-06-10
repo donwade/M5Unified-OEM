@@ -21,14 +21,14 @@ namespace m5
   }
 
 
-  uint8_t BMI270_Class::read8(uint8_t regnum, uint8_t &value)
+  uint8_t BMI270_Class::read8(uint8_t regnum, uint8_t &value, bool bQuiet)
   {
 	value = readRegister8(regnum);
-	log_d("\t\t[x%02X].8 >> %d (0x%02X)", regnum, value, value);  //dwade
+	if (!bQuiet) log_i("\t\t[x%02X].8 >> %d (0x%02X)", regnum, value, value);  //dwade
   	return value;
   }
 
-  bool BMI270_Class::readN(uint8_t regnum, uint8_t *array, uint16_t arrayLen)
+  bool BMI270_Class::readN(uint8_t regnum, uint8_t *array, uint16_t arrayLen , bool bQuiet)
   {
       uint8_t buf[arrayLen];
       memset(buf, 0x55, arrayLen);
@@ -36,34 +36,34 @@ namespace m5
       readRegister(regnum, buf, arrayLen);
       memcpy(array, &buf[0], arrayLen);
 
-      log_d("\t\t[x%02X].8 len=%d readN >>  (0x%02X 0x%02X ...)", regnum, arrayLen, array[0], array[1]); //dwade
+      if (!bQuiet) log_i("\t\t[x%02X].8 len=%d readN >>  (0x%02X 0x%02X ...)", regnum, arrayLen, array[0], array[1]); //dwade
   	return true;
   }
 
 
 
-  uint16_t BMI270_Class::read16(uint8_t regnum, uint16_t &value)
+  uint16_t BMI270_Class::read16(uint8_t regnum, uint16_t &value, bool bQuiet)
   {
   	  uint8_t temp[2];
-  	  readN(regnum, temp , sizeof(temp));
+  	  readN(regnum, temp , sizeof(temp), bQuiet);
 
       value = temp[1] << 8 | temp[0];  
-      log_d("\t\t[x%02X].16 >> %d (0x%04X)", regnum, value, value);	//dwade
+      if (!bQuiet) log_i("\t\t[x%02X].16 >> %d (0x%04X)", regnum, value, value);	//dwade
   	return value;
   }
 
-  uint8_t BMI270_Class::write8(uint8_t regnum, uint8_t value)
+  uint8_t BMI270_Class::write8(uint8_t regnum, uint8_t value, bool bQuiet)
   {
     writeRegister8(regnum, value);
-	log_d("\t\t[x%02X].8 << %d 0x%02X", regnum, value, value);	//dwade
+	if (!bQuiet) log_i("\t\t[x%02X].8 << %d 0x%02X", regnum, value, value);	//dwade
   	return value;
   }
 
-  uint16_t BMI270_Class::write16(uint8_t regnum, uint16_t value)
+  uint16_t BMI270_Class::write16(uint8_t regnum, uint16_t value, bool bQuiet)
   {
     // I2C_Class.hpp for inline defintion of writeRegister. (the header FILE).
     writeRegister(regnum, (uint8_t *) &value, 2);
-	log_d("\t\t[x%02X].16 << %d (0x%04X)", regnum, value, value);	//dwade
+	if (!bQuiet) log_i("\t\t[x%02X].16 << %d (0x%04X)", regnum, value, value);	//dwade
   	return value;
   }
 
@@ -167,7 +167,7 @@ namespace m5
   std::uint8_t BMI270_Class::WhoAmI(void)
   {
     uint8_t foo = readRegister8(CHIP_ID_ADDR);
-  	log_i("HELLO I AM %d ssssssssssssssssss", foo);
+  	log_w("HELLO I AM %d ssssssssssssssssss", foo);
     return foo;
   }
 

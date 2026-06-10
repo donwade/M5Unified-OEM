@@ -142,11 +142,11 @@ namespace m5
 
     IMU_Base* getImuInstancePtr(int idx) const { return _imu_instance[idx].get(); }
 
-    uint8_t  read8  (uint8_t regnum, uint8_t  &value);
-  	uint16_t read16 (uint8_t regnum, uint16_t &value);
-  	uint8_t  write8 (uint8_t regnum, uint8_t   value);
-  	uint16_t write16(uint8_t regnum, uint16_t  value);
-  	bool	 readN  (uint8_t regnum, uint8_t *array, uint16_t arrayLen);
+    uint8_t  read8  (uint8_t regnum, uint8_t  &value, bool bQuiet);
+  	uint16_t read16 (uint8_t regnum, uint16_t &value, bool bQuiet);
+  	uint8_t  write8 (uint8_t regnum, uint8_t   value, bool bQuiet);
+  	uint16_t write16(uint8_t regnum, uint16_t  value, bool bQuiet);
+  	bool	 readN  (uint8_t regnum, uint8_t *array, uint16_t arrayLen, bool bQuiet);
 
   private:
 
